@@ -17,16 +17,16 @@ const WorkoutForm = () => {
         "Content-Type": "application/json",
       },
     });
-    const json = await response.json();
+    const actualData = await response.json();
     if (!response.ok) {
-      setError(json.error);
+      setError(actualData.error);
     }
     if (response.ok) {
       setTitle("");
       setReps("");
       setLoad("");
       setError(null);
-      console.log("New workout added" + json + workout);
+      console.log("New workout added" + actualData + workout);
     }
   };
   return (
