@@ -20,6 +20,10 @@ export const workoutReducer = (state, action) => {
           (selectedWorkout) => selectedWorkout._id !== action.payload._id
         ),
       };
+    case "UPDATE_WORKOUT":
+      return {
+        workouts: [action.payload, ...state.workouts],
+      };
     default:
       return state;
   }
