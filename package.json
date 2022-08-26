@@ -1,5 +1,5 @@
 {
-  "proxy": "https://joyceworkout.herokuapp.com/",
+  "proxy": "https://mern-workout-tracking.herokuapp.com/",
   "name": "frontend",
   "version": "0.1.0",
   "private": true,

@@ -7,13 +7,16 @@ const WorkoutDetails = ({ workout }) => {
   const { dispatch } = useWorkoutContext();
 
   const handleDelete = async (e) => {
-    const response = await fetch("/api/workouts/" + workout._id, {
-      method: "DELETE",
-      // body: JSON.stringify(workout),
-      // headers: {
-      //   "Content-Type": "application/json",
-      // },
-    });
+    const response = await fetch(
+      "https://mern-workout-tracking.herokuapp.com/api/workouts/" + workout._id,
+      {
+        method: "DELETE",
+        // body: JSON.stringify(workout),
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
+      }
+    );
 
     const actualData = await response.json();
 
