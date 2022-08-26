@@ -6,7 +6,7 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 const WorkoutDetails = ({ workout }) => {
   const { dispatch } = useWorkoutContext();
 
-  const handleClick = async (e) => {
+  const handleDelete = async (e) => {
     const response = await fetch("/api/workouts/" + workout._id, {
       method: "DELETE",
       // body: JSON.stringify(workout),
@@ -36,7 +36,7 @@ const WorkoutDetails = ({ workout }) => {
       <p>
         {formatDistanceToNow(new Date(workout.createdAt), { addSuffix: true })}
       </p>
-      <span className="material-symbols-outlined" onClick={handleClick}>
+      <span className="material-symbols-outlined" onClick={handleDelete}>
         Delete
       </span>
     </div>
