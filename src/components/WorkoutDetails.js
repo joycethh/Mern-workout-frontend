@@ -1,29 +1,18 @@
 import React from "react";
-import { useWorkoutContext } from "../hooks/useWorkoutsContext";
+import { useDispatch } from "react-redux";
+//import action
+import { deleteWorkout } from "../action/workout";
 
 //date fns
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
+
 const WorkoutDetails = ({ workout }) => {
-  const { dispatch } = useWorkoutContext();
+  const dispatch = useDispatch();
 
-  const handleDelete = async (e) => {
-    const response = await fetch(
-      "https://mern-workout-tracking.herokuapp.com/api/workouts/" + workout._id,
-      {
-        method: "DELETE",
-        // body: JSON.stringify(workout),
-        // headers: {
-        //   "Content-Type": "application/json",
-        // },
-      }
-    );
-
-    const actualData = await response.json();
-
-    if (response.ok) {
-      dispatch({ type: "DELETE_WORKOUT", payload: actualData });
-    }
+  const handleDelete = () => {
+    dispatch(deleteWorkout(workout._id));
   };
+
   return (
     <div className="workout-details">
       <h4>{workout.title}</h4>
