@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 //actions
 import { getWorkouts } from "../action/workout";
 
@@ -20,7 +20,7 @@ const Home = () => {
     dispatch(getWorkouts());
     setIsLoading(false);
   }, [currentId, dispatch]);
-
+  console.log(dispatch(getWorkouts()));
   return isLoading ? (
     <p>Loading Loading Loading Loading</p> // TODO: Add a loading indicator here
   ) : (

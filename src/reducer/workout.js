@@ -3,6 +3,7 @@ import { FETCH_ALL, UPDATE, CREATE, DELETE } from "../constants/actionType";
 export const workoutReducer = (workouts = [], action) => {
   switch (action.type) {
     case FETCH_ALL:
+      console.log("fetch all", action);
       return action.payload;
     case CREATE:
       return [action.payload, ...workouts];
