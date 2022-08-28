@@ -1,5 +1,5 @@
 import * as api from "../api/index";
-import { FETCH_ALL, DELETE } from "../constants/actionType";
+import { FETCH_ALL, UPDATE, DELETE } from "../constants/actionType";
 
 export const getWorkouts = () => async (dispatch) => {
   try {
@@ -10,6 +10,14 @@ export const getWorkouts = () => async (dispatch) => {
   }
 };
 
+export const createWorkout = (newWorkout) => async (dispatch) => {
+  try {
+    const { data } = await api.createWorkout(newWorkout);
+    dispatch({ type: UPDATE, payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export const deleteWorkout = (id) => async (dispatch) => {
   try {
     await api.deleteWorkout(id);
