@@ -1,3 +1,3 @@
-import { combineReducer } from "redux";
+import { combineReducers } from "redux";
 import { workoutReducer } from "./workout";
-export const reducers = combineReducer({ workoutReducer });
+export const reducers = combineReducers({ workoutReducer });
