@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useWorkoutContext } from "../hooks/useWorkoutsContext";
+
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+//actions
+import { getWorkouts } from "../action/workout";
 
 //components
 import WorkoutDetails from "../components/WorkoutDetails";
 import WorkoutForm from "../components/WorkoutForm";
 
 const Home = () => {
-  const { dispatch } = useWorkoutContext();
-  const [workoutData, setWorkoutData] = useState([]);
+  const [currentId, setCurrentId] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
+  const dispatch = useDispatch();
+  const workoutData = useSelector((state) => state.workouts);
+
   useEffect(() => {
-    setIsLoading(true);
-    fetch("https://mern-workout-tracking.herokuapp.com/api/workouts/")
-      .then(async (response) => {
-        const data = await response.json();
-        setWorkoutData(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setWorkoutData([]);
-      });
-  }, [dispatch]);
+    dispatch(getWorkouts());
+    setIsLoading(false);
+  }, [currentId, dispatch]);
 
   return isLoading ? (
     <p>Loading Loading Loading Loading</p> // TODO: Add a loading indicator here
@@ -30,10 +27,10 @@ const Home = () => {
     <div className="home">
       <div className="workouts">
         {workoutData.map((workout) => (
-          <WorkoutDetails key={workout._id} workout={workout} />
+          <WorkoutDetails workout={workout} setCurrentId={setCurrentId} />
         ))}
       </div>
-      <WorkoutForm />
+      <WorkoutForm currentId={currentId} setCurrentId={setCurrentId} />
     </div>
   );
 };
