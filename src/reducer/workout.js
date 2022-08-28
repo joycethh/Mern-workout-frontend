@@ -3,14 +3,13 @@ import { FETCH_ALL, UPDATE, CREATE, DELETE } from "../constants/actionType";
 export const workoutReducer = (workouts = [], action) => {
   switch (action.type) {
     case FETCH_ALL:
-      console.log("fetch all", action);
       return action.payload;
     case CREATE:
       return [action.payload, ...workouts];
     case DELETE:
       console.log("delete action", action, workouts);
       return workouts.filter(
-        (restWorkout) => restWorkout._id !== action.payload // delete id here
+        (restWorkout) => restWorkout._id !== action.payload
       );
     case UPDATE:
       return workouts.map((workout) =>

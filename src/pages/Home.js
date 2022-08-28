@@ -14,13 +14,16 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
-  const workoutData = useSelector((state) => state.workouts);
+  const workoutData = useSelector((state) => {
+    console.log("state", state);
+    return state.workoutReducer;
+  });
 
   useEffect(() => {
     dispatch(getWorkouts());
     setIsLoading(false);
   }, [currentId, dispatch]);
-  console.log(dispatch(getWorkouts()));
+
   return isLoading ? (
     <p>Loading Loading Loading Loading</p> // TODO: Add a loading indicator here
   ) : (
