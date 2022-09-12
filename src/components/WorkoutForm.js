@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { useWorkoutContext } from "../hooks/useWorkoutsContext";
+import { useDispatch } from "react-redux";
+//import action
+import { createWorkout } from "../action/workout";
 
 const WorkoutForm = () => {
-  const { dispatch } = useWorkoutContext();
+  const dispatch = useDispatch();
 
-  const [title, setTitle] = useState("");
-  const [reps, setReps] = useState("");
-  const [load, setLoad] = useState("");
+  const [workoutData, setWorkoutData] = useState({
+    title: "",
+    reps: " ",
+    load: " ",
+  });
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
   const titleError = emptyFields.includes("title");
@@ -15,31 +19,26 @@ const WorkoutForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const workout = { title, reps, load };
+    dispatch(createWorkout(workoutData));
 
-    const response = await fetch(
-      "https://mern-workout-tracking.herokuapp.com/api/workouts/",
-      {
-        method: "POST",
-        body: JSON.stringify(workout),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const actualData = await response.json();
-    if (!response.ok) {
-      setError(actualData.error);
-      setEmptyFields(actualData.emptyFields);
-    }
-    if (response.ok) {
-      setTitle("");
-      setReps("");
-      setLoad("");
+    // const workout = { title, reps, load };
+
+    // const response = await fetch(
+    //   "https://mern-workout-tracking.herokuapp.com/api/workouts/",
+    //   {
+    //     method: "POST",
+    //     body: JSON.stringify(workout),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   }
+    // );
+    // const actualData = await response.json();
+
+    if (workoutData.ok) {
+      setWorkoutData({ title: "", reps: " ", load: " " });
       setError(null);
       setEmptyFields([]);
-      console.log("New workout added" + actualData + workout);
-      dispatch({ type: "CREATE_WORKOUT", payload: actualData });
     }
   };
   return (
@@ -48,24 +47,30 @@ const WorkoutForm = () => {
       <label>Exercise Title:</label>
       <input
         type="text"
-        onChange={(e) => setTitle(e.target.value)}
-        value={title}
+        onChange={(e) =>
+          setWorkoutData({ ...workoutData, title: e.target.value })
+        }
+        value={workoutData.title}
         className={titleError ? "error" : ""}
       />
 
       <label>Reps:</label>
       <input
         type="number"
-        onChange={(e) => setReps(e.target.value)}
-        value={reps}
+        onChange={(e) =>
+          setWorkoutData({ ...workoutData, reps: e.target.value })
+        }
+        value={workoutData.reps}
         className={repsError ? "error" : ""}
       />
 
       <label>Load (lb):</label>
       <input
         type="number"
-        onChange={(e) => setLoad(e.target.value)}
-        value={load}
+        onChange={(e) =>
+          setWorkoutData({ ...workoutData, load: e.target.value })
+        }
+        value={workoutData.load}
         className={loadError ? "error" : ""}
       />
       <button>Submit it</button>
