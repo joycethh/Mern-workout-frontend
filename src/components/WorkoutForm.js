@@ -17,16 +17,13 @@ const WorkoutForm = () => {
     e.preventDefault();
     const workout = { title, reps, load };
 
-    const response = await fetch(
-      "https://mern-workout-tracking.herokuapp.com/api/workouts/",
-      {
-        method: "POST",
-        body: JSON.stringify(workout),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch("http://localhost:4000/api/workouts/", {
+      method: "POST",
+      body: JSON.stringify(workout),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     const actualData = await response.json();
     if (!response.ok) {
       setError(actualData.error);

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useWorkoutContext } from "../hooks/useWorkoutsContext";
+//deployed server-side app url:  "https://mern-workout-tracking.herokuapp.com/"
 
 //components
 import WorkoutDetails from "../components/WorkoutDetails";
@@ -9,9 +10,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchWorkouts = async () => {
-      const response = await fetch(
-        "https://mern-workout-tracking.herokuapp.com/api/workouts/"
-      );
+      const response = await fetch("http://localhost:4000/api/workouts/");
       const json = await response.json();
 
       if (response.ok) {
