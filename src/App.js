@@ -14,8 +14,8 @@ function App() {
         <div className="pages">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/auth/login" element={<Login />} />
-            <Route path="/auth/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
           </Routes>
         </div>
       </BrowserRouter>
