@@ -33,7 +33,7 @@ const Login = () => {
     setIsSignup(true);
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="signup" onSubmit={handleSubmit}>
       <h3>Login</h3>
       <label>Email</label>
       <input type="text" name="email" onChange={handleChange} />
