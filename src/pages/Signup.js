@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 const Signup = () => {
+  const [error, setError] = useState(null);
   const [isSignup, setIsSignup] = useState(false);
   const [input, setInput] = useState({
     email: "",
     password: "",
   });
-  const { state, dispatch } = useAuthContext();
+  const { dispatch } = useAuthContext();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
@@ -14,26 +15,33 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("input", input);
+
     // what we do with the input data? ---send to server
-    //1.sign up
-    const signupResponse = await fetch(
-      "http://localhost:4000/api/user/signup",
-      {
-        method: "POST",
-        body: JSON.stringify(input),
-        // headers: {
-        //   "Content-Type": "application/json",
-        // },
-      }
-    );
+    const signupResponse = await fetch("api/user/signup", {
+      method: "POST",
+      body: JSON.stringify(input),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     //what response we will receive from the server? ----email, token
     const signupData = await signupResponse.json();
 
-    //
-    dispatch({ type: "SIGNUP", payload: signupData });
-    setIsSignup(true);
+    //1. response error
+    if (!signupResponse.ok) {
+      setError(signupData.error);
+    }
+    //2.response ok/ token received
+    if (signupResponse.ok) {
+      //2.a save the token to local storage
+      localStorage.setItem("user", JSON.stringify(signupData));
+
+      //2.b update the auth context
+      dispatch({ type: "LOGIN", payload: signupData });
+
+      setIsSignup(true);
+    }
   };
   return (
     <form className="signup" onSubmit={handleSubmit}>

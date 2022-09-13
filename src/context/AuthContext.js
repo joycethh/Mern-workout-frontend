@@ -20,7 +20,6 @@ export const AuthContextProvider = ({ children }) => {
 export const authReducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
-      //JSON.localstorge.setItem
       console.log("login state", state, action);
       return { user: action.payload };
     case "LOGOUT":
