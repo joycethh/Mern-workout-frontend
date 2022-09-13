@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { useAuthContext } from "../hooks/useAuthContext";
+import useSignup from "../hooks/useSignup";
+
 const Signup = () => {
-  const [error, setError] = useState(null);
-  const [isSignup, setIsSignup] = useState(false);
+  const { signup, isLoading, error } = useSignup();
   const [input, setInput] = useState({
     email: "",
     password: "",
   });
-  const { dispatch } = useAuthContext();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
@@ -15,33 +15,8 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // what we do with the input data? ---send to server
-    const signupResponse = await fetch("api/user/signup", {
-      method: "POST",
-      body: JSON.stringify(input),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    //what response we will receive from the server? ----email, token
-    const signupData = await signupResponse.json();
-
-    //1. response error
-    if (!signupResponse.ok) {
-      setError(signupData.error);
-    }
-    //2.response ok/ token received
-    if (signupResponse.ok) {
-      //2.a save the token to local storage
-      localStorage.setItem("user", JSON.stringify(signupData));
-
-      //2.b update the auth context
-      dispatch({ type: "LOGIN", payload: signupData });
-
-      setIsSignup(true);
-    }
+    //pass the user's input to the signup function
+    await signup(input);
   };
   return (
     <form className="signup" onSubmit={handleSubmit}>
@@ -50,7 +25,8 @@ const Signup = () => {
       <input type="text" name="email" onChange={handleChange} />
       <label>Password</label>
       <input type="text" name="password" onChange={handleChange} />
-      <button type="submit"> Sign Up </button>
+      <button disabled={isLoading}>Sign Up</button>
+      {error && <div className="error"> {error} </div>}
     </form>
   );
 };
