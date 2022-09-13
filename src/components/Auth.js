@@ -7,7 +7,7 @@ const Auth = () => {
     password: "",
   });
   const [isSignup, setIsSignup] = useState(false);
-  const { state, dispatch } = useAuthContext();
+  const { dispatch } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
