@@ -29,7 +29,7 @@ export const useLogin = () => {
     //2.2 if response is not ok
     if (!response.ok) {
       setIsLoading(false);
-      setError(response.statusText);
+      setError(json.error);
     }
     //2.3 response ok --we got the email, totken
     if (response.ok) {
