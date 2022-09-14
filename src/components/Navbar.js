@@ -1,14 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useLogout } from "../hooks/useLogout";
 
 const Navbar = () => {
-  //get user profile / totken from local strorage
-  // const userProfile = JSON.parse(localStorage.getItem('user'))
-  // const [user, setUser] =  useState(userProfile);
-  //check if token expired
+  //TODO: show user's info once they login
 
-  //1. no user, show sign in button
-  //2. user, show user's profile
+  const { logout } = useLogout();
 
   return (
     <header>
@@ -17,6 +14,9 @@ const Navbar = () => {
           <h1> Workout Tracking</h1>
         </Link>
         <nav>
+          <div>
+            <button onClick={() => logout()}>Log Out</button>
+          </div>
           <div>
             <Link to="/login">Login </Link>
             <Link to="/signup">Sign Up </Link>
