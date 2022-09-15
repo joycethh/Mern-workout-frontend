@@ -5,6 +5,10 @@ export const WorkoutsContext = createContext();
 //reducer cases
 export const workoutReducer = (state, action) => {
   switch (action.type) {
+    case "FETCH-ALL":
+      return {
+        workouts: action.payload,
+      };
     case "SET_WORKOUTS":
       return {
         workouts: action.payload,

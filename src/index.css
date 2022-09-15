@@ -67,6 +67,19 @@ header a {
   color: #333;
 }
 
+/* example home page */
+.note {
+  background: #fff;
+  border-radius: 4px;
+  height: fit-content;
+  margin: 20px auto;
+  padding: 20px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+  color: var(--primary);
+  font-size: 1.2em;
+  font-weight: 600;
+}
 /* new workout form */
 label, input {
   display: block;
