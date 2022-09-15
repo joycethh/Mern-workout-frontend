@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useWorkoutContext } from "../hooks/useWorkoutsContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 
@@ -6,11 +6,13 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 const WorkoutDetails = ({ workout }) => {
+  const [error, setError] = useState(null);
   const { dispatch } = useWorkoutContext();
   const { user } = useAuthContext();
 
   const handleDelete = async (e) => {
     if (!user) {
+      setError("Please sign in to delete");
       return;
     }
     const response = await fetch(
@@ -48,6 +50,7 @@ const WorkoutDetails = ({ workout }) => {
       <span className="material-symbols-outlined" onClick={handleDelete}>
         Delete
       </span>
+      {error && <div className="error">{error}</div>}
     </div>
   );
 };
