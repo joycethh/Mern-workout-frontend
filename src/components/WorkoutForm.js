@@ -41,7 +41,6 @@ const WorkoutForm = () => {
       setLoad("");
       setError(null);
       setEmptyFields([]);
-      console.log("New workout added" + actualData + workout);
       dispatch({ type: "CREATE_WORKOUT", payload: actualData });
     }
   };
