@@ -16,13 +16,16 @@ export const useLogin = () => {
     setError(null);
 
     //1.1 make api call and wait for response
-    const response = await fetch("api/user/login", {
-      method: "POST",
-      body: JSON.stringify(input),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "https://mern-workout-tracking.herokuapp.com/api/user/login",
+      {
+        method: "POST",
+        body: JSON.stringify(input),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     //2.1 to receive the json data back
     const json = await response.json();

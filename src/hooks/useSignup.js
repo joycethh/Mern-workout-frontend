@@ -11,13 +11,16 @@ const useSignup = () => {
     setIsLoading(true);
     setError(null);
 
-    const signupResponse = await fetch("api/user/signup", {
-      method: "POST",
-      body: JSON.stringify(input),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const signupResponse = await fetch(
+      "https://mern-workout-tracking.herokuapp.com/api/user/signup",
+      {
+        method: "POST",
+        body: JSON.stringify(input),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     //2. to receive response from server --email, token
     const signupData = await signupResponse.json();

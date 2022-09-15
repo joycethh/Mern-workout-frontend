@@ -14,7 +14,7 @@ const WorkoutDetails = ({ workout }) => {
       return;
     }
     const response = await fetch(
-      "http://localhost:4000/api/workouts/" + workout._id,
+      "https://mern-workout-tracking.herokuapp.com/api/workouts/" + workout._id,
       {
         method: "DELETE",
         headers: {
