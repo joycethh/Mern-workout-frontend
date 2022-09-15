@@ -11,7 +11,7 @@ const Auth = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("input", input);
+
     // what we do with the input data? ---send to server
     //1. login
     const loginResponse = await fetch("http://localhost:4000/api/user/login", {

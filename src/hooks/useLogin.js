@@ -23,7 +23,7 @@ export const useLogin = () => {
         "Content-Type": "application/json",
       },
     });
-    console.log("login response", response);
+
     //2.1 to receive the json data back
     const json = await response.json();
     //2.2 if response is not ok

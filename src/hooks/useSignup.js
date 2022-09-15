@@ -18,7 +18,7 @@ const useSignup = () => {
         "Content-Type": "application/json",
       },
     });
-    console.log("sign up response", signupResponse);
+
     //2. to receive response from server --email, token
     const signupData = await signupResponse.json();
 
