@@ -4,8 +4,11 @@ export const WorkoutsContext = createContext();
 
 //reducer cases
 export const workoutReducer = (state, action) => {
-  console.log(state);
   switch (action.type) {
+    case "FETCH-ALL":
+      return {
+        workouts: action.payload,
+      };
     case "SET_WORKOUTS":
       return {
         workouts: action.payload,
@@ -15,7 +18,6 @@ export const workoutReducer = (state, action) => {
         workouts: [action.payload, ...state.workouts],
       };
     case "DELETE_WORKOUT":
-      console.log(action);
       return {
         workouts: state.workouts.filter(
           (selectedWorkout) => selectedWorkout._id !== action.payload._id

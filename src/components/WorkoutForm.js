@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useWorkoutContext } from "../hooks/useWorkoutsContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const WorkoutForm = () => {
   const { dispatch } = useWorkoutContext();
-
+  const { user } = useAuthContext();
   const [title, setTitle] = useState("");
   const [reps, setReps] = useState("");
   const [load, setLoad] = useState("");
@@ -15,6 +16,10 @@ const WorkoutForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user) {
+      setError("Please log in to create or view workouts");
+      return;
+    }
     const workout = { title, reps, load };
 
     const response = await fetch(
@@ -24,6 +29,7 @@ const WorkoutForm = () => {
         body: JSON.stringify(workout),
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
         },
       }
     );
@@ -38,7 +44,6 @@ const WorkoutForm = () => {
       setLoad("");
       setError(null);
       setEmptyFields([]);
-      console.log("New workout added" + actualData + workout);
       dispatch({ type: "CREATE_WORKOUT", payload: actualData });
     }
   };

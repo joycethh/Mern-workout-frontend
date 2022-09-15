@@ -1,33 +1,25 @@
 import React, { useEffect } from "react";
 import { useWorkoutContext } from "../hooks/useWorkoutsContext";
-import { useAuthContext } from "../hooks/useAuthContext";
-//deployed server-side app url:  "https://mern-workout-tracking.herokuapp.com/"
-
-//components
 import WorkoutDetails from "../components/WorkoutDetails";
-import WorkoutForm from "../components/WorkoutForm";
+import { useAuthContext } from "../hooks/useAuthContext";
 
-const Home = () => {
+const Example = () => {
   const { workouts, dispatch } = useWorkoutContext();
   const { user } = useAuthContext();
+
   useEffect(() => {
-    const fetchWorkouts = async () => {
+    const fetchAll = async () => {
       const response = await fetch(
-        "https://mern-workout-tracking.herokuapp.com/api/workouts/",
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
+        "http://localhost:4000/api/workouts/example"
       );
       const json = await response.json();
 
       if (response.ok) {
-        dispatch({ type: "SET_WORKOUTS", payload: json });
+        dispatch({ type: "FETCH-ALL", payload: json });
       }
     };
-    if (user) {
-      fetchWorkouts();
+    if (!user) {
+      fetchAll();
     }
   }, [dispatch, user]);
   return (
@@ -38,9 +30,13 @@ const Home = () => {
             <WorkoutDetails key={workout._id} workout={workout} />
           ))}
       </div>
-      <WorkoutForm />
+      <div className="note">
+        <h4>Sign in</h4>
+        <p> to create, view, and delete </p>
+        <p>your own workouts. </p>
+      </div>
     </div>
   );
 };
 
-export default Home;
+export default Example;
